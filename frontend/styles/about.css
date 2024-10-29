@@ -1,0 +1,50 @@
+.hero-section {
+  background: linear-gradient(90deg, #1a1a2e 0%, #4a1042 50%, #1a1a2e 100%);
+  padding: 100px 0;
+  color: white;
+}
+
+.feature-card {
+  border: none;
+  transition: transform 0.3s ease;
+  background-color: #fff;
+  height: 100%;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+}
+
+.accent-color {
+  color: #dc3545;
+}
+
+.team-member {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.team-member img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  object-fit: cover;
+}
+
+.stats-section {
+  background-color: #dc3545;
+  color: white;
+  padding: 60px 0;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 20px;
+}
+
+.stat-number {
+  font-size: 2.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
