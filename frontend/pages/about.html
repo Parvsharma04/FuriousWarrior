@@ -12,47 +12,36 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
     />
-    <link rel="stylesheet" href="../styles/about.css">
+    <link rel="stylesheet" href="../styles/about.css" />
   </head>
   <body>
-    <header class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container">
-        <a class="navbar-brand" href="/">FuriousWarrior</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-            <li class="nav-item">
-              <a class="nav-link" href="/about">About Us</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/products">Products</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/counseling">Counseling</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/speaking">Speaking</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/growth-lab">Growth Lab</a>
-            </li>
-            <li class="nav-item"><a class="nav-link" href="/blog">Blog</a></li>
-            <li class="nav-item">
-              <a class="nav-link" href="/contact">Contact Us</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/login">Login</a>
-            </li>
-          </ul>
+    <header class="navbar">
+      <div class="container-nav">
+        <div class="logo">
+          <img src="../assets/logo.avif" alt="logo" width="50px" />
+          <a href="/">FuriousWarrior</a>
         </div>
+        <button class="menu-toggle" aria-label="Toggle menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+        <nav class="nav-menu">
+          <ul>
+            <li><a href="../index.html">Home</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="https://furiouswarrior.beehiiv.com/" target="_blank">Blog</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="/cart"
+                ><i class="fas fa-shopping-cart"></i> Cart</a
+              >
+            </li>
+
+            <li><a href="/login" class="login-btn">Login</a></li>
+          </ul>
+        </nav>
       </div>
     </header>
     <!-- Hero Section -->
@@ -190,9 +179,7 @@
             <h5>Contact Us</h5>
             <p>Email: info@furiouswarrior.com</p>
             <p>Phone: +1 (123) 456-7890</p>
-            <div class="social-icons">
-              <!-- Add social media icons and links here -->
-            </div>
+            <div class="social-icons"></div>
           </div>
         </div>
         <hr />
@@ -202,7 +189,7 @@
       </div>
     </footer>
 
-    <a href="#" class="float-btn" id="whatsappButton">
+    <a href="https://wa.me/6280730669" class="float-btn" target="_blank">
       <i class="fab fa-whatsapp"></i>
     </a>
 
