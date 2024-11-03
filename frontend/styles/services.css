@@ -160,7 +160,16 @@
   background-color: #128c7e;
   color: white;
 }
+.social-icons a {
+  color: white;
+  font-size: 1.5rem;
+  margin-right: 1rem;
+  transition: color 0.3s ease;
+}
 
+.social-icons a:hover {
+  color: #dc3545;
+}
 /* Responsive styles */
 @media (max-width: 910px) {
   .menu-toggle {
