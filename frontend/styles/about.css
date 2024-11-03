@@ -81,6 +81,7 @@
 }
 
 .nav-menu ul {
+  margin-top: 1rem;
   display: flex;
   list-style: none;
   margin-right: 3rem;
@@ -114,7 +115,7 @@
 }
 
 /* Responsive styles */
-@media (max-width: 768px) {
+@media (max-width: 910px) {
   .menu-toggle {
     display: block;
     background: none;
