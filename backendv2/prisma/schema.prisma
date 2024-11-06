@@ -1,0 +1,106 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  user_id        Int                @id @default(autoincrement())
+  full_name      String
+  email          String             @unique
+  phone_number   String
+  password_hash  String
+  signup_date    DateTime           @default(now())
+  activities     UserActivity[]
+  downloads      DocumentDownload[]
+  cartActivities CartActivity[]
+  orders         Order[]
+  invoices       Invoice[]
+}
+
+model UserActivity {
+  activity_id   Int      @id @default(autoincrement())
+  user          User     @relation(fields: [user_id], references: [user_id])
+  user_id       Int
+  activity_type String
+  activity_time DateTime @default(now())
+}
+
+model DocumentDownload {
+  download_id   Int      @id @default(autoincrement())
+  user          User     @relation(fields: [user_id], references: [user_id])
+  user_id       Int
+  document      Document @relation(fields: [document_id], references: [document_id])
+  document_id   Int
+  download_time DateTime @default(now())
+}
+
+model Document {
+  document_id    Int                @id @default(autoincrement())
+  title          String
+  description    String
+  price          Float
+  upload_date    DateTime           @default(now())
+  download_limit Int
+  downloads      DocumentDownload[]
+}
+
+model CartActivity {
+  cart_activity_id   Int       @id @default(autoincrement())
+  user               User      @relation(fields: [user_id], references: [user_id])
+  user_id            Int
+  item               Product   @relation(fields: [item_id], references: [item_id])
+  item_id            Int
+  added_to_cart_time DateTime  @default(now())
+  checked_out        Boolean
+  checkout_time      DateTime?
+}
+
+model Product {
+  item_id         Int            @id @default(autoincrement())
+  title           String
+  description     String
+  price           Float
+  category        Category       @relation(fields: [category_id], references: [category_id])
+  category_id     Int
+  available_stock Int
+  cartActivities  CartActivity[]
+}
+
+model Category {
+  category_id Int       @id @default(autoincrement())
+  name        String
+  description String
+  products    Product[]
+}
+
+model Order {
+  order_id       Int      @id @default(autoincrement())
+  user           User     @relation(fields: [user_id], references: [user_id])
+  user_id        Int
+  order_date     DateTime @default(now())
+  total_amount   Float
+  payment_status String
+  invoice        Invoice?
+}
+
+model Invoice {
+  invoice_id     Int      @id @default(autoincrement())
+  order          Order    @relation(fields: [order_id], references: [order_id])
+  order_id       Int      @unique
+  user           User     @relation(fields: [user_id], references: [user_id])
+  user_id        Int
+  generated_date DateTime @default(now())
+}
+
+model AnalyticsReport {
+  report_id      Int      @id @default(autoincrement())
+  report_type    String
+  generated_time DateTime @default(now())
+  data           Json
+}
