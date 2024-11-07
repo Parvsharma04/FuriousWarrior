@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - FuriousWarrior</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="shortcut icon" href="assets/logo.avif" type="image/x-icon" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa;
+      }
+      .logo {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        align-items: center;
+        justify-content: center;
+      }
+      .sidebar {
+        background-color: #1a1a1a;
+        color: #ffffff;
+        min-height: 100vh;
+        padding-top: 20px;
+      }
+      .sidebar .nav-link {
+        color: #ffffff;
+        padding: 10px 15px;
+      }
+      .sidebar .nav-link:hover {
+        background-color: #333333;
+      }
+      .main-content {
+        padding: 20px;
+      }
+      .card {
+        margin-bottom: 20px;
+        border: none;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+      .navbar {
+        background-color: #ffffff;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+      .navbar-brand {
+        font-weight: bold;
+        color: #1a1a1a;
+      }
+      .btn-primary {
+        background-color: #007bff;
+        border-color: #007bff;
+      }
+      .btn-primary:hover {
+        background-color: #0056b3;
+        border-color: #0056b3;
+      }
+      .sidebar {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        padding: 20px 0;
+        overflow-x: hidden;
+        overflow-y: auto;
+        background-color: #1a1a1a;
+        transition: all 0.3s;
+        transform: translateX(-100%);
+      }
+      .sidebar.show {
+        transform: translateX(0);
+      }
+      .content-wrapper {
+        margin-left: 0;
+        transition: margin-left 0.3s;
+      }
+      @media (min-width: 768px) {
+        .sidebar.show {
+          transform: translateX(0);
+        }
+        .content-wrapper.sidebar-open {
+          margin-left: 250px;
+        }
+      }
+      .sidebar .btn-link {
+        color: #ffffff;
+        text-decoration: none;
+      }
+      .sidebar .btn-link:hover {
+        color: #f8f9fa;
+      }
+
+      /* Hide sidebar on small screens */
+      @media (max-width: 767px) {
+        /* Hide sidebar */
+        .sidebar {
+          display: none;
+        }
+
+        /* Show the sidebar toggle button */
+        #sidebarToggle {
+          display: inline-block;
+        }
+
+        /* Ensure content wrapper takes full width */
+        .content-wrapper {
+          margin-left: 0;
+        }
+      }
+
+      /* Display sidebar and hide toggle button on larger screens */
+      @media (min-width: 768px) {
+        /* Show sidebar */
+        .sidebar {
+          display: block;
+          transform: translateX(0);
+        }
+
+        /* Hide sidebar toggle button */
+        #sidebarToggle {
+          display: none;
+        }
+
+        /* Adjust content wrapper margin to account for sidebar */
+        .content-wrapper {
+          margin-left: 250px; /* Adjust to the width of the sidebar */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Sidebar -->
+        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
+          <div
+            class="d-flex justify-content-between align-items-center px-3 py-2 mb-4"
+          >
+            <div class="logo">
+              <img
+                src="..//assets/logo.avif"
+                alt="FuriousWarrior Logo"
+                width="50"
+                height="50"
+              />
+              <h5 class="mt-2">Furious Warrior</h5>
+            </div>
+            <button id="sidebarClose" class="btn btn-link text-white d-md-none">
+              <i class="fas fa-bars"></i>
+            </button>
+          </div>
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" href="#">
+                <i class="fas fa-tachometer-alt me-2"></i>Dashboard
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-chart-line me-2"></i>Analytics
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-file-alt me-2"></i>Pages
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-blog me-2"></i>Blogs
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-tags me-2"></i>Categories
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-box me-2"></i>Products
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-users me-2"></i>Customers
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-shopping-cart me-2"></i>Orders
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-ticket-alt me-2"></i>Coupons
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-credit-card me-2"></i>Payment Gateway
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-envelope me-2"></i>Contacts
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-user-shield me-2"></i>Manage Staff
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-file-contract me-2"></i>Policies
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-chart-bar me-2"></i>Reports
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-cog me-2"></i>General Settings
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <!-- Main content -->
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 content-wrapper">
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+              <button id="sidebarToggle" class="btn btn-outline-primary">
+                <i class="fas fa-bars"></i>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                  <li class="nav-item dropdown">
+                    <a
+                      class="nav-link dropdown-toggle"
+                      href="#"
+                      id="navbarDropdown"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <i class="fas fa-user-circle me-2"></i>Admin
+                    </a>
+                    <ul
+                      class="dropdown-menu dropdown-menu-end"
+                      aria-labelledby="navbarDropdown"
+                    >
+                      <li>
+                        <a class="dropdown-item" href="#"
+                          ><i class="fas fa-user me-2"></i>Profile</a
+                        >
+                      </li>
+                      <li>
+                        <a class="dropdown-item" href="#"
+                          ><i class="fas fa-cog me-2"></i>Settings</a
+                        >
+                      </li>
+                      <li><hr class="dropdown-divider" /></li>
+                      <li>
+                        <a class="dropdown-item" href="#"
+                          ><i class="fas fa-sign-out-alt me-2"></i>Logout</a
+                        >
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+
+          <div
+            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+          >
+            <h1 class="h2">Dashboard</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <div class="btn-group me-2">
+                <button type="button" class="btn btn-sm btn-outline-secondary">
+                  Share
+                </button>
+                <button type="button" class="btn btn-sm btn-outline-secondary">
+                  Export
+                </button>
+              </div>
+              <button
+                type="button"
+                class="btn btn-sm btn-outline-secondary dropdown-toggle"
+              >
+                <i class="fas fa-calendar-alt"></i>
+                This week
+              </button>
+            </div>
+          </div>
+
+          <!-- Dashboard content -->
+          <div class="row">
+            <div class="col-md-3 mb-4">
+              <div class="card bg-primary text-white">
+                <div class="card-body">
+                  <h5 class="card-title">Total Users</h5>
+                  <p class="card-text display-4">1,234</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-4">
+              <div class="card bg-success text-white">
+                <div class="card-body">
+                  <h5 class="card-title">Total Orders</h5>
+                  <p class="card-text display-4">567</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-4">
+              <div class="card bg-info text-white">
+                <div class="card-body">
+                  <h5 class="card-title">Total Sales</h5>
+                  <p class="card-text display-4">$89,234</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-4">
+              <div class="card bg-warning text-dark">
+                <div class="card-body">
+                  <h5 class="card-title">Today's Orders</h5>
+                  <p class="card-text display-4">23</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts -->
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Sales Overview</h5>
+                  <canvas id="salesChart"></canvas>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-body">
+                  <h5 class="card-title">Top Products</h5>
+                  <canvas id="productsChart"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Orders -->
+          <div class="card mt-4">
+            <div class="card-body">
+              <h5 class="card-title">Recent Orders</h5>
+              <div class="table-responsive">
+                <table class="table table-striped table-sm">
+                  <thead>
+                    <tr>
+                      <th>Order ID</th>
+                      <th>Customer</th>
+                      <th>Product</th>
+                      <th>Amount</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>#1234</td>
+                      <td>John Doe</td>
+                      <td>Cybersecurity Course</td>
+                      <td>$299</td>
+                      <td><span class="badge bg-success">Completed</span></td>
+                    </tr>
+                    <tr>
+                      <td>#1235</td>
+                      <td>Jane Smith</td>
+                      <td>Interview Preparation</td>
+                      <td>$199</td>
+                      <td><span class="badge bg-warning">Pending</span></td>
+                    </tr>
+                    <tr>
+                      <td>#1236</td>
+                      <td>Bob Johnson</td>
+                      <td>Career Counseling</td>
+                      <td>$149</td>
+                      <td><span class="badge bg-info">Processing</span></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      // Sales Chart
+      var salesCtx = document.getElementById("salesChart").getContext("2d");
+      var salesChart = new Chart(salesCtx, {
+        type: "line",
+        data: {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+          datasets: [
+            {
+              label: "Sales",
+              data: [12, 19, 3, 5, 2, 3],
+              borderColor: "rgb(75, 192, 192)",
+              tension: 0.1,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          scales: {
+            y: {
+              beginAtZero: true,
+            },
+          },
+        },
+      });
+
+      // Products Chart
+      var productsCtx = document
+        .getElementById("productsChart")
+        .getContext("2d");
+      var productsChart = new Chart(productsCtx, {
+        type: "doughnut",
+        data: {
+          labels: [
+            "Cybersecurity Course",
+            "Interview Preparation",
+            "Career Counseling",
+          ],
+          datasets: [
+            {
+              data: [300, 50, 100],
+              backgroundColor: [
+                "rgb(255, 99, 132)",
+                "rgb(54, 162, 235)",
+                "rgb(255, 205, 86)",
+              ],
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: {
+              position: "top",
+            },
+            title: {
+              display: true,
+              text: "Top Products",
+            },
+          },
+        },
+      });
+
+      // Sidebar toggle
+      document.addEventListener("DOMContentLoaded", function () {
+        var sidebar = document.getElementById("sidebar");
+        var sidebarToggle = document.getElementById("sidebarToggle");
+        var sidebarClose = document.getElementById("sidebarClose");
+        var content = document.querySelector(".content-wrapper");
+
+        function toggleSidebar() {
+          sidebar.classList.toggle("show");
+          content.classList.toggle("sidebar-open");
+        }
+
+        sidebarToggle.addEventListener("click", toggleSidebar);
+        sidebarClose.addEventListener("click", toggleSidebar);
+
+        // Close sidebar when clicking outside
+        document.addEventListener("click", function (event) {
+          var isClickInside =
+            sidebar.contains(event.target) ||
+            sidebarToggle.contains(event.target);
+          if (!isClickInside && sidebar.classList.contains("show")) {
+            toggleSidebar();
+          }
+        });
+      });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const sidebar = document.getElementById("sidebar");
+        const sidebarToggle = document.getElementById("sidebarToggle");
+        const sidebarClose = document.getElementById("sidebarClose");
+        const content = document.querySelector(".content-wrapper");
+
+        function toggleSidebar() {
+          sidebar.classList.toggle("show");
+          content.classList.toggle("sidebar-open");
+        }
+
+        sidebarToggle.addEventListener("click", toggleSidebar);
+        sidebarClose.addEventListener("click", toggleSidebar);
+
+        document.addEventListener("click", function (event) {
+          if (
+            !sidebar.contains(event.target) &&
+            !sidebarToggle.contains(event.target) &&
+            sidebar.classList.contains("show")
+          ) {
+            toggleSidebar();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

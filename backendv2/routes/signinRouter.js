@@ -20,7 +20,6 @@ router.post("/signin", async (req, res) => {
       return res.status(401).json({ message: "Invalid email or password." });
     }
 
-
     const isPasswordValid = await bcrypt.compare(
       password,
       existingUser.password_hash
@@ -40,6 +39,7 @@ router.post("/signin", async (req, res) => {
       message: "Login successful",
       fullname: existingUser.full_name,
       phone: existingUser.phone_number,
+      role: existingUser.user_role,
     });
   } catch (error) {
     console.error("Error occurred during signin:", error);

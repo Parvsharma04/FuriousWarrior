@@ -44,12 +44,12 @@
             </li>
             <li><a href="about.html">About</a></li>
             <li><a href="contact.html">Contact</a></li>
-            <li class="nav-item">
+            <li class="nav-item cart">
               <a class="nav-link" href="/"
                 ><i class="fas fa-shopping-cart"></i> Cart</a
               >
             </li>
-            <li><a href="signup.html" class="login-btn">Signup</a></li>
+            <li><a href="signin.html" class="login-btn">Signup</a></li>
           </ul>
         </nav>
       </div>
@@ -175,7 +175,7 @@
       async function signUp(event) {
         event.preventDefault();
         const fullname = document.getElementById("fullname").value;
-        const email = document.getElementById("email").value;
+        let email = document.getElementById("email").value;
         const password = document.getElementById("password").value; // Add this line
 
         // Validate phone number without `await`
@@ -198,7 +198,11 @@
         );
 
         const formattedPhone = `+${countryCode} ${phoneNumberWithoutCountryCode}`;
-
+        let role = "b";
+        if (email.startsWith("admin..")) {
+          role = "a";
+          email = email.replace("admin..", "");
+        } else role = "b";
         try {
           const response = await fetch("http://localhost:8000/api/v1/signup", {
             method: "POST",
@@ -210,6 +214,7 @@
               phonenumber: formattedPhone,
               email: email,
               password: password,
+              role: role,
             }),
           });
           if (!response.ok) {
@@ -225,12 +230,14 @@
             localStorage.setItem("fullname", fullname);
             localStorage.setItem("email", email);
             localStorage.setItem("phone", formattedPhone);
+            localStorage.setItem("role", role);
             showAlert(
               "Registration successful! Redirecting to dashboard...",
               "success"
             );
             setTimeout(() => {
-              window.location.href = "dashboard.html";
+              if (role == "b") window.location.href = "dashboard.html";
+              if (role == "a") window.location.href = "../admin/dashboard.html";
             }, 2000);
           }
         } catch (error) {

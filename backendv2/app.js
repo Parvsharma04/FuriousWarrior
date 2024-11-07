@@ -5,6 +5,7 @@ const session = require("express-session");
 const signinRouter = require("./routes/signinRouter");
 const signupRouter = require("./routes/signupRouter");
 const port = 8000;
+require('dotenv').config();
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());

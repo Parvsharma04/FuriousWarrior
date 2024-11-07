@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 router.post("/signup", async (req, res) => {
   try {
-    const { fullname, phonenumber, password, email } = req.body;
+    const { fullname, phonenumber, password, email, role } = req.body;
     await prisma.$connect();
 
     // Check if the user already exists
@@ -23,7 +23,6 @@ router.post("/signup", async (req, res) => {
 
     // Hash the password
     const hashedPassword = await bcrypt.hash(password, 10);
-
     // Create a new user entry
     const newUser = await prisma.user.create({
       data: {
@@ -32,6 +31,7 @@ router.post("/signup", async (req, res) => {
         phone_number: phonenumber,
         password_hash: hashedPassword,
         signup_date: new Date(),
+        user_role: role == 'a' ? "ADMIN" : "USER"
       },
     });
 
