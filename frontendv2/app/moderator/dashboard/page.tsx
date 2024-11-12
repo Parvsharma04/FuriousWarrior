@@ -32,7 +32,7 @@ export default function ModeratorDashboard() {
 
   useEffect(() => {
     if (!isLoggedIn) router.push("/");
-  }, [isLoggedIn]);
+  }, [isLoggedIn, router]);
 
   const menuItems = [
     { name: "Overview", icon: BarChart },
@@ -173,7 +173,7 @@ function ContentContent() {
       </CardHeader>
       <CardContent>
         <p>
-          Review and approve user-generated content before it's published on the
+          Review and approve user-generated content before it&apos;s published on the
           platform.
         </p>
         <Button className="mt-4">Review Pending Content</Button>

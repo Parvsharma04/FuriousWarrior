@@ -17,6 +17,14 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+interface Token {
+  id: string;
+  email: string;
+  fullName: string;
+  role: string;
+  phonenumber: string;
+}
+
 export default function SignInPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -53,7 +61,7 @@ export default function SignInPage() {
       if (data.token) {
         await localStorage.setItem("token", data.token);
 
-        const decoded = jwtDecode(data.token);
+        const decoded: Token = jwtDecode(data.token);
         console.log("Decoded user info:", decoded);
         console.log(decoded);
         setAlert({ type: "success", message: "Login successful!" });
@@ -119,7 +127,7 @@ export default function SignInPage() {
         </CardContent>
         <CardFooter className="justify-center">
           <p>
-            Don't have an account?{" "}
+            Don&apos;t have an account?{" "}
             <Link href="/signup" className="text-primary hover:underline">
               Sign up
             </Link>

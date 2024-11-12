@@ -29,7 +29,7 @@ export default function Counseling() {
           <CardContent>
             <p>
               Our expert career counselors will help you navigate the complex
-              world of cyber security careers. We'll assess your skills,
+              world of cyber security careers. We&apos;ll assess your skills,
               interests, and goals to create a personalized career roadmap.
             </p>
           </CardContent>
@@ -49,7 +49,7 @@ export default function Counseling() {
           <CardContent>
             <p>
               Prepare for your dream job with our specialized interview
-              preparation service. We'll cover common questions, technical
+              preparation service. We&apos;ll cover common questions, technical
               assessments, and help you showcase your skills effectively.
             </p>
           </CardContent>
@@ -76,7 +76,7 @@ export default function Counseling() {
         <CardHeader>
           <CardTitle>Request a Consultation</CardTitle>
           <CardDescription>
-            Fill out the form below and we'll get back to you to schedule your
+            Fill out the form below and we&apos;ll get back to you to schedule your
             counseling session.
           </CardDescription>
         </CardHeader>

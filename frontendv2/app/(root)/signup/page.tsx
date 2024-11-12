@@ -18,6 +18,14 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
+interface Token {
+  id: string;
+  email: string;
+  fullName: string;
+  role: string;
+  phonenumber: string;
+}
+
 export default function SignUpPage() {
   const [fullname, setFullname] = useState("");
   const [email, setEmail] = useState("");
@@ -70,7 +78,7 @@ export default function SignUpPage() {
         });
       } else {
         localStorage.setItem("token", data.token);
-        const decoded = jwtDecode(data.token);
+        const decoded: Token = jwtDecode(data.token);
         setAlert({
           type: "success",
           message: "Registration successful! Redirecting to dashboard...",

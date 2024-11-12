@@ -15,7 +15,6 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { jwtDecode } from "jwt-decode";
 import {
   BarChart,
   Gift,
@@ -48,8 +47,6 @@ export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("overview");
   const [isLoggedIn, setLoggedIn] = useState<boolean | null>(null); // Initialize as null
   const [token, setToken] = useState<string | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
-  const [userData, setUserData] = useState({});
   const router = useRouter();
 
   useEffect(() => {
@@ -63,14 +60,12 @@ export default function AdminDashboard() {
       router.push("/");
     } else if (isLoggedIn && token) {
       try {
-        const decodedData = jwtDecode(token);
-        setUserData(decodedData);
       } catch (error) {
         console.error("Invalid token:", error);
         handleLogout();
       }
     }
-  }, [isLoggedIn, token]);
+  }, [isLoggedIn, token, router]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
@@ -150,7 +145,8 @@ export default function AdminDashboard() {
         <header className="bg-white shadow-sm p-4 flex justify-between items-center">
           <div className="flex items-center">
             <SidebarTrigger className="mr-4">
-              {isMobile ? <Menu size={24} /> : <X size={24} />}
+              <Menu size={24} className="hidden" />
+              <X size={24} className="md:hidden" />
             </SidebarTrigger>
             <h1 className="text-xl font-semibold text-gray-800">
               {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
@@ -309,8 +305,6 @@ function OrdersContent() {
     </Card>
   );
 }
-
-
 
 function AnalyticsContent() {
   return (

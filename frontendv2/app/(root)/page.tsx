@@ -19,7 +19,7 @@ export default function Home() {
           At Furious Warrior, we uphold a commitment to Consistent Security with
           Zero Tolerance, ensuring that cyber security remains uncompromising at
           every level. Join us to build a thriving career in cyber security,
-          where you'll gain hands-on experience and expertise, shaping the
+          where you&apos;ll gain hands-on experience and expertise, shaping the
           future of digital protection.
         </p>
         <Button asChild>

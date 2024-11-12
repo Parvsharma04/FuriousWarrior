@@ -39,7 +39,7 @@ export default function About() {
       <div className="mb-12">
         <h2 className="text-3xl font-semibold mb-4">Our Story</h2>
         <p className="text-lg mb-4">
-          Furious Warrior was founded in 2015 by a group of cyber security experts who saw the need for a more robust and proactive approach to digital security. Since then, we've grown into a leading force in the industry, constantly innovating and adapting to the ever-changing threat landscape.
+          Furious Warrior was founded in 2015 by a group of cyber security experts who saw the need for a more robust and proactive approach to digital security. Since then, we&apos;ve grown into a leading force in the industry, constantly innovating and adapting to the ever-changing threat landscape.
         </p>
         <p className="text-lg">
           Our commitment to excellence and our zero-tolerance policy towards security breaches have made us the go-to partner for businesses and organizations looking to protect their digital assets and maintain the trust of their customers.

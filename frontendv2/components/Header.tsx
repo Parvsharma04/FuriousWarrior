@@ -7,6 +7,14 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
+interface Token {
+  id: string;
+  email: string;
+  fullName: string;
+  role: string;
+  phonenumber: string;
+}
+
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -17,7 +25,7 @@ export default function Header() {
     const token = localStorage.getItem("token");
     if (token) {
       setIsAuthenticated(true);
-      const decodedToken: any = jwtDecode(token);
+      const decodedToken: Token = jwtDecode(token);
       setUserRole(decodedToken.role);
     }
   }, []);

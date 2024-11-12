@@ -22,7 +22,20 @@ import {
   SelectValue,
 } from "./ui/select";
 
-export default function AddProductForm({ onClose }: any) {
+interface AddProductFormProps {
+  onClose: () => void;
+}
+
+interface FormData {
+  title: string;
+  description: string;
+  price: number;
+  category: string;
+  available_stock: number;
+  document?: FileList;
+}
+
+export default function AddProductForm({ onClose }: AddProductFormProps) {
   const categories = [
     "DOCUMENT",
     "SERVICE",
@@ -37,13 +50,11 @@ export default function AddProductForm({ onClose }: any) {
     reset,
     formState: { errors },
     setValue,
-  } = useForm();
+  } = useForm<FormData>();
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: FormData) => {
     try {
       let response;
-
-      // Check if a document file is included
       if (data.document && data.document[0]) {
         const formData = new FormData();
         formData.append("title", data.title);
@@ -58,7 +69,6 @@ export default function AddProductForm({ onClose }: any) {
           body: formData,
         });
       } else {
-        // Send as JSON if no file is included
         response = await fetch("http://localhost:8000/api/v1/products", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -142,8 +152,8 @@ export default function AddProductForm({ onClose }: any) {
             </div>
 
             <div>
-              <Label htmlFor="category_id">Category</Label>
-              <Select onValueChange={(value) => setValue("category_id", value)}>
+              <Label htmlFor="category">Category</Label>
+              <Select onValueChange={(value) => setValue("category", value)}>
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Select a category" />
                 </SelectTrigger>
@@ -158,8 +168,8 @@ export default function AddProductForm({ onClose }: any) {
                   </SelectGroup>
                 </SelectContent>
               </Select>
-              {errors.category_id && (
-                <p className="text-red-500">{errors.category_id.message}</p>
+              {errors.category && (
+                <p className="text-red-500">{errors.category.message}</p>
               )}
             </div>
 
