@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - FuriousWarrior</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <link rel="shortcut icon" href="../../assets/logo.avif" type="image/x-icon" />
+    <link rel="stylesheet" href="../../styles/admindash.css" />
+    <link rel="stylesheet" href="../../styles/blogs.css" />
+    <link rel="stylesheet" href="../../Global.css" />
+  </head>
+  <body>
+    <nav id="sidebar" class="sidebar">
+      <div
+        class="px-3 py-2 mb-4 d-flex justify-content-between align-items-center"
+      >
+        <div class="logo">
+          <img
+            src="../../assets/logo.avif"
+            alt="FuriousWarrior Logo"
+            width="50"
+            height="50"
+          />
+          <h5>Furious Warrior</h5>
+        </div>
+        <button id="sidebarClose" class="btn btn-link text-white d-md-none">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link active" href="dashboard.html"
+            ><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a
+          >
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="./features/blogs.html"
+            ><i class="fas fa-blog me-2"></i>Blogs</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./features/categories.html"
+            ><i class="fas fa-tags me-2"></i>Categories</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./features/products.html"
+            ><i class="fas fa-box me-2"></i>Products</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./features/customers.html"
+            ><i class="fas fa-users me-2"></i>Customers</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./features/orders.html"
+            ><i class="fas fa-shopping-cart me-2"></i>Orders</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./features/coupons.html"
+            ><i class="fas fa-ticket-alt me-2"></i>Coupons</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./features/payment.html"
+            ><i class="fas fa-credit-card me-2"></i>Payment Gateway</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./features/contacts.html"
+            ><i class="fas fa-envelope me-2"></i>Contacts</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./features/staff.html"
+            ><i class="fas fa-user-shield me-2"></i>Manage Staff</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./features/policies.html"
+            ><i class="fas fa-file-contract me-2"></i>Policies</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./features/reports.html"
+            ><i class="fas fa-chart-bar me-2"></i>Reports</a
+          >
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="./features/settings.html"
+            ><i class="fas fa-cog me-2"></i>General Settings</a
+          >
+        </li>
+      </ul>
+    </nav>
+
+    <nav class="navbar navbar-expand">
+      <div class="container-fluid">
+        <button id="sidebarToggle" class="btn btn-outline-primary">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="fas fa-user-circle me-2"></i>Admin
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdown"
+              >
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="fas fa-user me-2"></i>Profile</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="fas fa-cog me-2"></i>Settings</a
+                  >
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="fas fa-sign-out-alt me-2"></i>Logout</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+      <div class="row">
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 content-wrapper">
+          <div
+            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
+          >
+            <h1 class="h2">Blogs</h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+              <a href="#" class="btn btn-primary">Add New Blog Post</a>
+            </div>
+          </div>
+
+          <div class="content">
+            <div class="card">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Category</th>
+                    <th>Date Published</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Top 10 Cybersecurity Trends in 2023</td>
+                    <td>John Doe</td>
+                    <td>Cybersecurity</td>
+                    <td>2023-06-15</td>
+                    <td>
+                      <a href="#" class="btn btn-sm btn-outline-primary"
+                        >Edit</a
+                      >
+                      <a href="#" class="btn btn-sm btn-outline-danger"
+                        >Delete</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>How to Ace Your Tech Interview</td>
+                    <td>Jane Smith</td>
+                    <td>Career Advice</td>
+                    <td>2023-06-10</td>
+                    <td>
+                      <a href="#" class="btn btn-sm btn-outline-primary"
+                        >Edit</a
+                      >
+                      <a href="#" class="btn btn-sm btn-outline-danger"
+                        >Delete</a
+                      >
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>The Future of AI in Cybersecurity</td>
+                    <td>Mike Johnson</td>
+                    <td>AI & Cybersecurity</td>
+                    <td>2023-06-05</td>
+                    <td>
+                      <a href="#" class="btn btn-sm btn-outline-primary"
+                        >Edit</a
+                      >
+                      <a href="#" class="btn btn-sm btn-outline-danger"
+                        >Delete</a
+                      >
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </main>
+      </div>
+    </div>
+    <script src="../admindash.js"></script>
+  </body>
+</html>

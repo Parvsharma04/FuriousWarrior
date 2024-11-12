@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders - FuriousWarrior Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="../../assets/logo.avif" alt="FuriousWarrior Logo">
+            <h2>FuriousWarrior</h2>
+        </div>
+        <ul>
+            <li><a href="../dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="analytics.html"><i class="fas fa-chart-line"></i> Analytics</a></li>
+            <li><a href="blogs.html"><i class="fas fa-blog"></i> Blogs</a></li>
+            <li><a href="categories.html"><i class="fas fa-tags"></i> Categories</a></li>
+            <li><a href="products.html"><i class="fas fa-box"></i> Products</a></li>
+            <li><a href="customers.html"><i class="fas fa-users"></i> Customers</a></li>
+            <li class="active"><a href="orders.html"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+            <li><a href="coupons.html"><i class="fas fa-ticket-alt"></i> Coupons</a></li>
+            <li><a href="payment.html"><i class="fas fa-credit-card"></i> Payment Gateway</a></li>
+            <li><a href="contacts.html"><i class="fas fa-envelope"></i> Contacts</a></li>
+            <li><a href="staff.html"><i class="fas fa-user-shield"></i> Manage Staff</a></li>
+            <li><a href="policies.html"><i class="fas fa-file-contract"></i> Policies</a></li>
+            <li><a href="reports.html"><i class="fas fa-chart-pie"></i> Reports</a></li>
+            <li><a href="settings.html"><i class="fas fa-cog"></i> General Settings</a></li>
+        </ul>
+    </div>
+<nav class="navbar navbar-expand">
+      <div class="container-fluid">
+        <button id="sidebarToggle" class="btn btn-outline-primary">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="fas fa-user-circle me-2"></i>Admin
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdown"
+              >
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="fas fa-user me-2"></i>Profile</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="fas fa-cog me-2"></i>Settings</a
+                  >
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="fas fa-sign-out-alt me-2"></i>Logout</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="content">
+        <h1 class="page-title">Orders</h1>
+        <div class="card">
+            <h2 class="card-title">Recent Orders</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Customer</th>
+                        <th>Product</th>
+                        <th>Date</th>
+                        <th>Total</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#1001</td>
+                        <td>John Doe</td>
+                        <td>Cybersecurity Course</td>
+                        <td>2023-06-15</td>
+                        <td>$299</td>
+                        <td><span class="status completed">Completed</span></td>
+                        <td>
+                            <a href="#" class="btn">View</a>
+                            <a href="#" class="btn">Edit</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#1002</td>
+                        <td>Jane Smith</td>
+                        <td>Career Counseling</td>
+                        <td>2023-06-14</td>
+                        <td>$149</td>
+                        <td><span class="status processing">Processing</span></td>
+                        <td>
+                            <a href="#" class="btn">View</a>
+                            <a href="#" class="btn">Edit</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>#1003</td>
+                        <td>Mike Johnson</td>
+                        <td>Interview Preparation</td>
+                        <td>2023-06-13</td>
+                        <td>$199</td>
+                        <td><span class="status pending">Pending</span></td>
+                        <td>
+                            <a href="#" class="btn">View</a>
+                            <a href="#" class="btn">Edit</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

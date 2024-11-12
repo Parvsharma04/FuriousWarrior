@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products - FuriousWarrior Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="../../assets/logo.avif" alt="FuriousWarrior Logo">
+            <h2>FuriousWarrior</h2>
+        </div>
+        <ul>
+            <li><a href="../dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="analytics.html"><i class="fas fa-chart-line"></i> Analytics</a></li>
+            <li class="active"><a href="products.html"><i class="fas fa-box"></i> Products</a></li>
+            <!-- Add more sidebar items as needed -->
+        </ul>
+    </div>
+<nav class="navbar navbar-expand">
+      <div class="container-fluid">
+        <button id="sidebarToggle" class="btn btn-outline-primary">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="fas fa-user-circle me-2"></i>Admin
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdown"
+              >
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="fas fa-user me-2"></i>Profile</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="fas fa-cog me-2"></i>Settings</a
+                  >
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="fas fa-sign-out-alt me-2"></i>Logout</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="content">
+        <h1 class="page-title">Products</h1>
+        <div class="card">
+            <h2 class="card-title">All Products</h2>
+            <a href="#" class="btn">Add New Product</a>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Stock</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Cybersecurity Course</td>
+                        <td>Courses</td>
+                        <td>$299</td>
+                        <td>Unlimited</td>
+                        <td>
+                            <a href="#" class="btn">Edit</a>
+                            <a href="#" class="btn">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Interview Preparation</td>
+                        <td>Services</td>
+                        <td>$199</td>
+                        <td>50</td>
+                        <td>
+                            <a href="#" class="btn">Edit</a>
+                            <a href="#" class="btn">Delete</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Career Counseling</td>
+                        <td>Services</td>
+                        <td>$149</td>
+                        <td>100</td>
+                        <td>
+                            <a href="#" class="btn">Edit</a>
+                            <a href="#" class="btn">Delete</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

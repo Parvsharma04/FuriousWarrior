@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reports - FuriousWarrior Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../styles/admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="../../assets/logo.avif" alt="FuriousWarrior Logo">
+            <h2>FuriousWarrior</h2>
+        </div>
+        <ul>
+            <li><a href="../dashboard.html"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+            <li><a href="analytics.html"><i class="fas fa-chart-line"></i> Analytics</a></li>
+            <li><a href="blogs.html"><i class="fas fa-blog"></i> Blogs</a></li>
+            <li><a href="categories.html"><i class="fas fa-tags"></i> Categories</a></li>
+            <li><a href="products.html"><i class="fas fa-box"></i> Products</a></li>
+            <li><a href="customers.html"><i class="fas fa-users"></i> Customers</a></li>
+            <li><a href="orders.html"><i class="fas fa-shopping-cart"></i> Orders</a></li>
+            <li><a href="coupons.html"><i class="fas fa-ticket-alt"></i> Coupons</a></li>
+            <li><a href="payment.html"><i class="fas fa-credit-card"></i> Payment Gateway</a></li>
+            <li><a href="contacts.html"><i class="fas fa-envelope"></i> Contacts</a></li>
+            <li><a href="staff.html"><i class="fas fa-user-shield"></i> Manage Staff</a></li>
+            <li><a href="policies.html"><i class="fas fa-file-contract"></i> Policies</a></li>
+            <li class="active"><a href="reports.html"><i class="fas fa-chart-pie"></i> Reports</a></li>
+            <li><a href="settings.html"><i class="fas fa-cog"></i> General Settings</a></li>
+        </ul>
+    </div>
+<nav class="navbar navbar-expand">
+      <div class="container-fluid">
+        <button id="sidebarToggle" class="btn btn-outline-primary">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i class="fas fa-user-circle me-2"></i>Admin
+              </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarDropdown"
+              >
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="fas fa-user me-2"></i>Profile</a
+                  >
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="fas fa-cog me-2"></i>Settings</a
+                  >
+                </li>
+                <li><hr class="dropdown-divider" /></li>
+                <li>
+                  <a class="dropdown-item" href="#"
+                    ><i class="fas fa-sign-out-alt me-2"></i>Logout</a
+                  >
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <div class="content">
+        <h1 class="page-title">Reports</h1>
+        <div class="card">
+            <h2 class="card-title">Generate Reports</h2>
+            <form>
+                <div class="form-group">
+                    <label for="report-type">Report Type:</label>
+                    <select id="report-type" name="report-type">
+                        <option value="sales">Sales Report</option>
+                        <option value="customers">Customer Report</option>
+                        <option value="products">Product Performance</option>
+                        <option value="inventory">Inventory Report</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="start-date">Start Date:</label>
+                    <input type="date" id="start-date" name="start-date">
+                </div>
+                <div class="form-group">
+                    <label for="end-date">End Date:</label>
+                    <input type="date" id="end-date" name="end-date">
+                </div>
+                <button type="submit" class="btn">Generate Report</button>
+            </form>
+        </div>
+        <div class="card">
+            <h2 class="card-title">Recent Reports</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Report Name</th>
+                        <th>Generated On</th>
+                        <th>Type</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Monthly Sales Report - May 2023</td>
+                        <td>2023-06-01</td>
+                        <td>Sales</td>
+                        <td>
+                            <a href="#" class="btn">View</a>
+                            <a href="#" class="btn">Download</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Customer Acquisition Q2 2023</td>
+                        <td>2023-07-01</td>
+                        <td>Customers</td>
+                        <td>
+                            <a href="#" class="btn">View</a>
+                            <a href="#" class="btn">Download</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Top Selling Products - June 2023</td>
+                        <td>2023-07-02</td>
+                        <td>Products</td>
+                        <td>
+                            <a href="#" class="btn">View</a>
+                            <a href="#" class="btn">Download</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
