@@ -1,3 +1,4 @@
+const { subDays } = require("date-fns");
 const { PrismaClient } = require("@prisma/client");
 const express = require("express");
 const { authMiddleware } = require("../middleware/auth.middleware.js");
@@ -36,6 +37,61 @@ router.get("/document-downloads", async (req, res) => {
     res.json(documentDownloads);
   } catch (error) {
     console.error("Error fetching document download analytics:", error.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+router.get("/users", async (req, res) => {
+  try {
+    // Define the cutoff date for determining active and new users (e.g., 30 days ago)
+    const cutoffDate = subDays(new Date(), 30);
+
+    // Fetch all users with email and amount spent
+    const users = await prisma.user.findMany({
+      select: {
+        email: true,
+        amount_spent: true,
+      },
+    });
+
+    // Get total user count
+    const userCount = await prisma.user.count();
+
+    // Count of new users (signed up within the last 30 days)
+    const newUserCount = await prisma.user.count({
+      where: {
+        signup_date: {
+          gte: cutoffDate,
+        },
+      },
+    });
+
+    // Count of active users (at least one activity within the last 30 days)
+    const activeUserCount = await prisma.user.count({
+      where: {
+        activities: {
+          some: {
+            activity_time: {
+              gte: cutoffDate,
+            },
+          },
+        },
+      },
+    });
+
+    // Count of inactive users (no activity within the last 30 days)
+    const inactiveUserCount = userCount - activeUserCount;
+
+    // Send response with user list and counts
+    res.json({
+      users,
+      userCount,
+      newUserCount,
+      activeUserCount,
+      inactiveUserCount,
+    });
+  } catch (error) {
+    console.error("Error fetching user data:", error.message);
     res.status(500).json({ message: "Internal server error" });
   }
 });

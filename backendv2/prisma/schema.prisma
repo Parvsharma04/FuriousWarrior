@@ -36,6 +36,7 @@ model User {
   phone_number   String
   password_hash  String
   signup_date    DateTime           @default(now())
+  amount_spent   Float              @default(0.0) // New field for total amount spent
   activities     UserActivity[]
   downloads      DocumentDownload[]
   cartActivities CartActivity[]

@@ -3,8 +3,16 @@ const express = require("express");
 const authMiddleware = require("../middleware/auth.middleware.js");
 const adminMiddleware = require("../middleware/admin.middleware.js");
 const multer = require("multer");
-const upload = multer({ dest: "uploads/" }); // Configure multer as needed
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./uploads");
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.originalname);
+  },
+});
 
+const upload = multer({ storage: storage });
 const router = express.Router();
 const prisma = new PrismaClient();
 
@@ -56,8 +64,6 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-// Create a new product (admin only)
-
 router.post("/", upload.single("document"), async (req, res) => {
   console.log("Received body:", req.body);
   console.log("Received file:", req.file);
@@ -82,8 +88,6 @@ router.post("/", upload.single("document"), async (req, res) => {
           description: description,
           price: parsedPrice,
           download_limit: parsedStock,
-          file_path: req.file.path, // Assuming `file_path` in Document model
-          filename: req.file.originalname,
         },
       });
       documentId = document.document_id;
@@ -101,7 +105,10 @@ router.post("/", upload.single("document"), async (req, res) => {
       },
     });
 
-    res.status(201).json(newProduct);
+    res.status(201).json({
+      message: "Product created successfully!",
+      data: newProduct,
+    });
   } catch (error) {
     console.error("Error creating product:", error);
     res.status(500).json({ message: "Internal server error" });
@@ -140,17 +147,17 @@ router.put("/:id", authMiddleware, adminMiddleware, async (req, res) => {
 });
 
 // Delete a product by ID (admin only)
-router.delete("/:id", authMiddleware, adminMiddleware, async (req, res) => {
-  try {
-    await prisma.product.delete({
-      where: { item_id: parseInt(req.params.id) },
-    });
-
-    res.json({ message: "Product deleted successfully" });
-  } catch (error) {
-    console.error("Error deleting product:", error);
-    res.status(500).json({ message: "Internal server error" });
-  }
-});
+  router.delete("/:id", async (req, res) => {
+    try {
+      await prisma.product.delete({
+        where: { item_id: parseInt(req.params.id) },
+      });
+      console.log("deleted");
+      res.json({ message: "Product deleted successfully" });
+    } catch (error) {
+      console.error("Error deleting product:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
 
 module.exports = router;

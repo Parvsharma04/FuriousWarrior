@@ -1,10 +1,8 @@
-import RootLayout from "@/app/layout"; // Import the existing main layout
-import { ReactNode } from "react";
 
-export default function RootLayoutWrapper({
-  children,
+export default function DashboardLayout({
+  children, // will be a page or nested layout
 }: {
-  children: ReactNode;
+  children: React.ReactNode;
 }) {
-  return <RootLayout>{children}</RootLayout>;
+  return <>{children}</>;
 }

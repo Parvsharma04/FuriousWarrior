@@ -11,6 +11,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { toast } from "@/hooks/use-toast";
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import {
   Select,
@@ -36,6 +39,7 @@ interface FormData {
 }
 
 export default function AddProductForm({ onClose }: AddProductFormProps) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const categories = [
     "DOCUMENT",
     "SERVICE",
@@ -53,6 +57,7 @@ export default function AddProductForm({ onClose }: AddProductFormProps) {
   } = useForm<FormData>();
 
   const onSubmit = async (data: FormData) => {
+    setIsSubmitting(true);
     try {
       let response;
       if (data.document && data.document[0]) {
@@ -84,14 +89,28 @@ export default function AddProductForm({ onClose }: AddProductFormProps) {
 
       if (!response.ok) {
         const errorData = await response.json();
-        console.error("Failed to create product:", errorData);
-        return;
+        throw new Error(errorData.message || "Failed to create product");
       }
 
+      toast({
+        title: "Success",
+        description: "Product added successfully",
+        // variant: "default",
+      });
       reset();
       onClose();
     } catch (error) {
       console.error("Failed to create product:", error);
+      toast({
+        title: "Error",
+        description:
+          error instanceof Error
+            ? error.message
+            : "An error occurred while adding the product",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -202,7 +221,16 @@ export default function AddProductForm({ onClose }: AddProductFormProps) {
           </div>
 
           <DialogFooter>
-            <Button type="submit">Submit</Button>
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Submitting...
+                </>
+              ) : (
+                "Submit"
+              )}
+            </Button>
             <Button type="button" variant="secondary" onClick={onClose}>
               Cancel
             </Button>

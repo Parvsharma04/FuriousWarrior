@@ -1,6 +1,5 @@
 "use client";
 
-import ProductsContent from "@/components/ProductsContent";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ChartContainer } from "@/components/ui/chart";
@@ -15,6 +14,7 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
+import UsersPage from "@/components/UsersPage";
 import {
   BarChart,
   Gift,
@@ -31,17 +31,16 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
-  Bar,
   CartesianGrid,
   Legend,
   Line,
   LineChart,
-  BarChart as RechartsBarChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
 } from "recharts";
+import ProductsPage from "../products/page";
 
 export default function AdminDashboard() {
   const [activeTab, setActiveTab] = useState("overview");
@@ -97,7 +96,7 @@ export default function AdminDashboard() {
       case "orders":
         return <OrdersContent />;
       case "products":
-        return <ProductsContent />;
+        return <ProductsPage />;
       case "analytics":
         return <AnalyticsContent />;
       case "coupons":
@@ -249,44 +248,7 @@ function OverviewContent() {
 }
 
 function UsersContent() {
-  const userData = [
-    { name: "New", value: 400 },
-    { name: "Active", value: 800 },
-    { name: "Inactive", value: 200 },
-  ];
-
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>User Management</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p className="mb-4">
-          Here you can manage users, view their details, and perform actions
-          like blocking or deleting accounts.
-        </p>
-        <ChartContainer
-          config={{
-            users: {
-              label: "Users",
-              color: "hsl(var(--chart-1))",
-            },
-          }}
-          className="h-[300px]"
-        >
-          <RechartsBarChart data={userData}>
-            <XAxis dataKey="name" />
-            <YAxis />
-            <CartesianGrid strokeDasharray="3 3" />
-            <Tooltip />
-            <Legend />
-            <Bar dataKey="value" fill="var(--color-users)" name="Users" />
-          </RechartsBarChart>
-        </ChartContainer>
-        <Button className="mt-4">View All Users</Button>
-      </CardContent>
-    </Card>
-  );
+  return <UsersPage />;
 }
 
 function OrdersContent() {

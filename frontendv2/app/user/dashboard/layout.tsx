@@ -1,19 +1,17 @@
 // app/root/layout.tsx
-import RootLayout from "@/app/layout"; // Import the existing main layout
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import { ReactNode } from "react";
 
-export default function RootLayoutWrapper({
-  children,
+export default function DashboardLayout({
+  children, // will be a page or nested layout
 }: {
-  children: ReactNode;
+  children: React.ReactNode;
 }) {
   return (
-    <RootLayout>
+    <>
       <Header />
       <main className="min-h-screen">{children}</main>
       <Footer />
-    </RootLayout>
+    </>
   );
 }
