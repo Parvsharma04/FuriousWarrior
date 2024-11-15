@@ -39,15 +39,17 @@ const ITEMS_PER_PAGE = 10;
 export default function CouponsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [showForm, setShowForm] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [editForm, setEditForm] = useState(false);
   const { toast } = useToast();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { coupons: contextCoupons, products: contextProducts } =
     useDashboardData();
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [editCoupon, setEditCoupon] = useState<Coupon | null>(null);
   const [coupons, setCoupons] = useState<Coupon[]>(contextCoupons); // Local state for coupons
   const [currentPage, setCurrentPage] = useState(1);
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [formData, setFormData] = useState<
     Omit<Coupon, "coupon_id" | "times_used">
   >({

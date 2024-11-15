@@ -182,7 +182,7 @@ function OverviewContent() {
   const [userCount, setUserCount] = useState(0);
   const [orderCount, setOrderCount] = useState(0);
 
-  console.log(orders, userAnalytics);
+  // console.log(orders, userAnalytics);
 
   const revenueDummyData = [
     { name: "Jan", value: 0 },
@@ -223,12 +223,12 @@ function OverviewContent() {
       setOrderCount(orders.orderCount);
 
       // Prepare the data for the chart based on monthly revenue
-      const revenueArray = Object.entries(monthlyRevenue).map(
-        ([month, value]) => ({
-          name: month,
-          value,
-        })
-      );
+      // const revenueArray = Object.entries(monthlyRevenue).map(
+      //   ([month, value]) => ({
+      //     name: month,
+      //     value,
+      //   })
+      // );
 
       // Ensure consistent order for the chart data
       const orderedRevenueData = [

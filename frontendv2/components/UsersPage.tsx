@@ -35,7 +35,7 @@ import { useDashboardData } from "@/context/DashboardContext";
 import { useToast } from "@/hooks/use-toast";
 
 interface User {
-  user_id: number;
+  user_id: string;
   email: string;
   amount_spent: number;
   user_role: string;
@@ -118,6 +118,7 @@ export default function UsersPage() {
         description: "Failed to update user role",
         variant: "destructive",
       });
+      console.log("Error", error);
     } finally {
       setIsSubmitting(false);
     }
