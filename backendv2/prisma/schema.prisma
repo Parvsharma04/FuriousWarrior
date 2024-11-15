@@ -92,10 +92,11 @@ model Product {
   available_stock Int
   file            Document?      @relation(fields: [document_id], references: [document_id])
   document_id     Int?
-  cartActivities  CartActivity[]
-  orderItems      OrderItem[]
+  cartActivities  CartActivity[] // Cart activities related to the product
+  orderItems      OrderItem[] // Order items related to the product
   downloads       Int? // Optional field for products with limited downloads
-  seo_meta_data   Json? // Optional SEO data
+  seo_meta_data   Json? // Optional SEO data for the product
+  coupons         Coupon[] // Many-to-many relation with coupons (directly reference Coupon)
 }
 
 model OrderItem {
@@ -117,8 +118,7 @@ model Order {
   payment_status String
   invoice        Invoice?
   items          OrderItem[]
-  coupon         Coupon?     @relation(fields: [coupon_id], references: [coupon_id])
-  coupon_id      Int?
+  coupons        Coupon[]
 }
 
 model Invoice {
@@ -138,13 +138,18 @@ model AnalyticsReport {
 }
 
 model Coupon {
-  coupon_id        Int      @id @default(autoincrement())
-  code             String   @unique
+  coupon_id        Int       @id @default(autoincrement())
+  title            String
+  description      String
+  code             String    @unique
   discount_amount  Float
   discount_percent Float?
   start_date       DateTime
   end_date         DateTime
   max_uses         Int
-  times_used       Int      @default(0)
-  orders           Order[]
+  times_used       Int       @default(0)
+  type             String // Either 'PRODUCT' or 'ORDER'
+  orders           Order[] // For order-wide coupons (Type 2)
+  products         Product[] // Many-to-many relation with products
+  valid            Boolean   @default(true)
 }

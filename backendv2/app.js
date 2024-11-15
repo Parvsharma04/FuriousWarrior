@@ -12,6 +12,7 @@ const analyticsRouter = require("./routes/analyticsRouter.js");
 const documentRouter = require("./routes/documentRouter.js");
 const orderRouter = require("./routes/orderRouter.js");
 const productRouter = require("./routes/productRouter.js");
+const couponRouter = require("./routes/couponRouter.js");
 const userRouter = require("./routes/userRouter.js");
 
 dotenv.config();
@@ -37,8 +38,9 @@ app.use(
 
 // Routes
 app.use("/api/v1/users", userRouter);
-app.use("/api/v1/products", productRouter);
 app.use("/api/v1/orders", orderRouter);
+app.use("/api/v1/products", productRouter);
+app.use("/api/v1/coupons", couponRouter);
 app.use("/api/v1/documents", documentRouter);
 app.use("/api/v1/analytics", analyticsRouter);
 

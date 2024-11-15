@@ -116,30 +116,67 @@ router.post("/", upload.single("document"), async (req, res) => {
 });
 
 // Update an existing product by ID (admin only)
-router.put("/:id", authMiddleware, adminMiddleware, async (req, res) => {
+router.put("/:id", upload.single("document"), async (req, res) => {
   try {
-    const {
-      title,
-      description,
-      price,
-      category,
-      available_stock,
-      document_id,
-    } = req.body;
+    console.log(req.body);
+    const { title, description, price, category, available_stock } = req.body;
 
+    const productId = parseInt(req.params.id);
+    const product = await prisma.product.findUnique({
+      where: { item_id: productId },
+      include: { file: true }, // Includes related document, if it exists
+    });
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    let documentId = product.document_id; // Start with the existing document_id if it exists
+
+    // Handle document file if uploaded
+    if (req.file) {
+      if (documentId) {
+        // Update existing document
+        await prisma.document.update({
+          where: { document_id: documentId },
+          data: {
+            title,
+            description,
+            price: parseFloat(price),
+            download_limit: parseInt(available_stock),
+          },
+        });
+      } else {
+        // Create new document
+        const document = await prisma.document.create({
+          data: {
+            title,
+            description,
+            price: parseFloat(price),
+            download_limit: parseInt(available_stock),
+          },
+        });
+        documentId = document.document_id;
+      }
+    }
+
+    // Update the product with documentId
     const updatedProduct = await prisma.product.update({
-      where: { item_id: parseInt(req.params.id) },
+      where: { item_id: productId },
       data: {
         title,
         description,
         price: parseFloat(price),
-        category, // Update category as enum
+        category, // Ensure category is a valid enum value
         available_stock: parseInt(available_stock),
-        document_id: document_id ? parseInt(document_id) : null, // Optional document_id
+        document_id: documentId, // Attach or update document
       },
     });
 
-    res.json(updatedProduct);
+    res.json({
+      message: "Product updated successfully!",
+      data: updatedProduct,
+    });
   } catch (error) {
     console.error("Error updating product:", error);
     res.status(500).json({ message: "Internal server error" });
@@ -147,17 +184,17 @@ router.put("/:id", authMiddleware, adminMiddleware, async (req, res) => {
 });
 
 // Delete a product by ID (admin only)
-  router.delete("/:id", async (req, res) => {
-    try {
-      await prisma.product.delete({
-        where: { item_id: parseInt(req.params.id) },
-      });
-      console.log("deleted");
-      res.json({ message: "Product deleted successfully" });
-    } catch (error) {
-      console.error("Error deleting product:", error);
-      res.status(500).json({ message: "Internal server error" });
-    }
-  });
+router.delete("/:id", async (req, res) => {
+  try {
+    await prisma.product.delete({
+      where: { item_id: parseInt(req.params.id) },
+    });
+    console.log("deleted");
+    res.json({ message: "Product deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting product:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
 
 module.exports = router;

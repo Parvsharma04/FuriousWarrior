@@ -16,6 +16,10 @@ import {
 } from "@/components/ui/sidebar";
 import UsersPage from "@/components/UsersPage";
 import {
+  DashboardProvider,
+  useDashboardData,
+} from "@/context/DashboardContext";
+import {
   BarChart,
   Gift,
   Menu,
@@ -40,6 +44,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import CouponsPage from "../../../components/CouponsPage";
 import ProductsPage from "../products/page";
 
 export default function AdminDashboard() {
@@ -106,7 +111,11 @@ export default function AdminDashboard() {
       case "settings":
         return <SettingsContent />;
       default:
-        return <OverviewContent />;
+        return (
+          <div className="w-full">
+            <OverviewContent />
+          </div>
+        );
     }
   };
 
@@ -140,50 +149,123 @@ export default function AdminDashboard() {
           <SidebarFooter></SidebarFooter>
         </Sidebar>
       </div>
-      <main className="flex-1 overflow-y-auto">
-        <header className="bg-white shadow-sm p-4 flex justify-between items-center">
-          <div className="flex items-center">
-            <SidebarTrigger className="mr-4">
-              <Menu size={24} className="hidden" />
-              <X size={24} className="md:hidden" />
-            </SidebarTrigger>
-            <h1 className="text-xl font-semibold text-gray-800">
-              {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
-            </h1>
-          </div>
-          <Button
-            onClick={handleLogout}
-            className=" text-white bg-red-500 hover:bg-red-600"
-          >
-            Logout
-          </Button>
-        </header>
+      <DashboardProvider>
+        <main className="flex-1 overflow-y-auto">
+          <header className="bg-white shadow-sm p-4 flex justify-between items-center">
+            <div className="flex items-center">
+              <SidebarTrigger className="mr-4">
+                <Menu size={24} className="hidden" />
+                <X size={24} className="md:hidden" />
+              </SidebarTrigger>
+              <h1 className="text-xl font-semibold text-gray-800">
+                {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
+              </h1>
+            </div>
+            <Button
+              onClick={handleLogout}
+              className=" text-white bg-red-500 hover:bg-red-600"
+            >
+              Logout
+            </Button>
+          </header>
 
-        <div className="p-6">{renderContent()}</div>
-      </main>
+          <div className="p-6">{renderContent()}</div>
+        </main>
+      </DashboardProvider>
     </SidebarProvider>
   );
 }
 
 function OverviewContent() {
-  const revenueData = [
-    { name: "Jan", value: 4000 },
-    { name: "Feb", value: 3000 },
-    { name: "Mar", value: 5000 },
-    { name: "Apr", value: 4500 },
-    { name: "May", value: 6000 },
-    { name: "Jun", value: 5500 },
+  const { userAnalytics, products, orders } = useDashboardData();
+  const [revenue, setRevenue] = useState(0);
+  const [userCount, setUserCount] = useState(0);
+  const [orderCount, setOrderCount] = useState(0);
+
+  console.log(orders, userAnalytics);
+
+  const revenueDummyData = [
+    { name: "Jan", value: 0 },
+    { name: "Feb", value: 0 },
+    { name: "Mar", value: 0 },
+    { name: "Apr", value: 0 },
+    { name: "May", value: 0 },
+    { name: "Jun", value: 0 },
+    { name: "Jul", value: 0 },
+    { name: "Aug", value: 0 },
+    { name: "Sep", value: 0 },
+    { name: "Oct", value: 0 },
+    { name: "Nov", value: 0 },
+    { name: "Dec", value: 0 },
   ];
+  const [revenueData, setRevenueData] =
+    useState<{ name: string; value: number }[]>(revenueDummyData);
+
+  useEffect(() => {
+    // Check if orders and userAnalytics are available before using them
+    if (orders && orders.orders) {
+      let totalRevenue = 0;
+      const monthlyRevenue: { [key: string]: number } = {};
+      let val = 1;
+
+      orders.orders.forEach((order) => {
+        totalRevenue += order.total_amount;
+
+        const month = new Date(order.order_date).toLocaleString("default", {
+          month: "short",
+        });
+        monthlyRevenue[month] =
+          (monthlyRevenue[month] || 0) + order.total_amount + 10 * val;
+        val++;
+      });
+
+      setRevenue(totalRevenue);
+      setOrderCount(orders.orderCount);
+
+      // Prepare the data for the chart based on monthly revenue
+      const revenueArray = Object.entries(monthlyRevenue).map(
+        ([month, value]) => ({
+          name: month,
+          value,
+        })
+      );
+
+      // Ensure consistent order for the chart data
+      const orderedRevenueData = [
+        "Jan",
+        "Feb",
+        "Mar",
+        "Apr",
+        "May",
+        "Jun",
+        "Jul",
+        "Aug",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dec",
+      ].map((month) => ({
+        name: month,
+        value: monthlyRevenue[month] || 0,
+      }));
+
+      setRevenueData(orderedRevenueData);
+    }
+
+    if (userAnalytics) {
+      setUserCount(userAnalytics.userCount);
+    }
+  }, [orders, userAnalytics]);
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-full">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <Card>
           <CardHeader>
             <CardTitle>Total Users</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold">1,234</p>
+            <p className="text-3xl font-bold">{userCount}</p>
           </CardContent>
         </Card>
         <Card>
@@ -191,7 +273,7 @@ function OverviewContent() {
             <CardTitle>Total Orders</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold">567</p>
+            <p className="text-3xl font-bold">{orderCount}</p>
           </CardContent>
         </Card>
         <Card>
@@ -199,7 +281,7 @@ function OverviewContent() {
             <CardTitle>Total Revenue</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold">$12,345</p>
+            <p className="text-3xl font-bold">${revenue.toFixed(2)}</p>
           </CardContent>
         </Card>
         <Card>
@@ -207,11 +289,11 @@ function OverviewContent() {
             <CardTitle>Active Products</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-3xl font-bold">89</p>
+            <p className="text-3xl font-bold">{products.length}</p>
           </CardContent>
         </Card>
       </div>
-      <Card className="max-w-full md:max-w-fit md:p-0">
+      <Card className="hidden md:block md:max-w-fit md:p-0">
         <CardHeader>
           <CardTitle>Revenue Overview</CardTitle>
         </CardHeader>
@@ -286,20 +368,7 @@ function AnalyticsContent() {
 }
 
 function CouponsContent() {
-  return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Coupon Management</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <p>
-          Here you can create, edit, and manage discount coupons for your
-          products and services.
-        </p>
-        <Button className="mt-4">Create New Coupon</Button>
-      </CardContent>
-    </Card>
-  );
+  return <CouponsPage />;
 }
 
 function ContactsContent() {

@@ -137,4 +137,67 @@ router.post("/signup", async (req, res) => {
   }
 });
 
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  const { role } = req.body;
+  console.log(req.body);
+  try {
+    await prisma.$connect();
+
+    // Check if the user exists
+    const user = await prisma.user.findUnique({
+      where: { user_id: parseInt(id) },
+    });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Update user details
+    const updatedUser = await prisma.user.update({
+      where: { user_id: parseInt(id) },
+      data: {
+        user_role: role,
+      },
+    });
+
+    res
+      .status(200)
+      .json({ message: "User updated successfully", user: updatedUser });
+  } catch (error) {
+    console.error("Error updating user:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  } finally {
+    await prisma.$disconnect();
+  }
+});
+
+// Route to delete a user (admin only)
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    await prisma.$connect();
+
+    // Check if the user exists
+    const user = await prisma.user.findUnique({
+      where: { user_id: parseInt(id) },
+    });
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Delete the user
+    await prisma.user.delete({ where: { user_id: parseInt(id) } });
+
+    res.status(200).json({ message: "User deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ message: "Internal Server Error" });
+  } finally {
+    await prisma.$disconnect();
+  }
+});
+
+module.exports = router;
+
 module.exports = router;

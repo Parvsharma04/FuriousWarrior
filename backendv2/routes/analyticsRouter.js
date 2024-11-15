@@ -49,8 +49,10 @@ router.get("/users", async (req, res) => {
     // Fetch all users with email and amount spent
     const users = await prisma.user.findMany({
       select: {
+        user_id: true,
         email: true,
         amount_spent: true,
+        user_role: true,
       },
     });
 
@@ -99,18 +101,55 @@ router.get("/users", async (req, res) => {
 // Get order analytics
 router.get("/orders", async (req, res) => {
   try {
-    const orderAnalytics = await prisma.order.aggregate({
-      _sum: {
-        total_amount: true,
-      },
-      _count: {
+    // Fetch the total count of orders
+    const orderCount = await prisma.order.count();
+
+    // Fetch detailed order information, including items and user details
+    const orders = await prisma.order.findMany({
+      select: {
         order_id: true,
+        user: {
+          select: {
+            email: true,
+            full_name: true,
+          },
+        },
+        order_date: true,
+        total_amount: true,
+        payment_status: true,
+        items: {
+          select: {
+            product: {
+              select: {
+                title: true,
+                price: true,
+                category: true,
+              },
+            },
+            quantity: true,
+            price: true,
+          },
+        },
+        coupon: {
+          select: {
+            code: true,
+            discount_amount: true,
+            discount_percent: true,
+          },
+        },
+      },
+      orderBy: {
+        order_date: "desc", // Orders fetched in descending order by date
       },
     });
 
-    res.json(orderAnalytics);
+    // Send response with order count and order details
+    res.json({
+      orderCount,
+      orders,
+    });
   } catch (error) {
-    console.error("Error fetching order analytics:", error.message);
+    console.error("Error fetching order data:", error.message);
     res.status(500).json({ message: "Internal server error" });
   }
 });

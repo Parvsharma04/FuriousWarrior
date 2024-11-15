@@ -28,13 +28,13 @@ type Product = {
 
 type ProductCardProps = {
   product: Product;
-  onEdit: (id: string) => void;
+  handleEdit: (product: Product) => void;
   onDelete: (id: string) => void;
 };
 
 export default function ProductCard({
   product,
-  onEdit,
+  handleEdit,
   onDelete,
 }: ProductCardProps) {
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
@@ -53,11 +53,7 @@ export default function ProductCard({
         </p>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button
-          variant="outline"
-          size="sm"
-          onClick={() => onEdit(product.item_id)}
-        >
+        <Button variant="outline" size="sm" onClick={() => handleEdit(product)}>
           <Pencil className="w-4 h-4 mr-2" />
           Edit
         </Button>
